@@ -10,20 +10,94 @@ from app import appbuilder, db
     class MyModelView(ModelView):
         datamodel = SQLAInterface(MyModel)
 
-
-    Next, register your Views::
-
-
-    appbuilder.add_view(MyModelView, "My View", icon="fa-folder-open-o", category="My Category", category_icon='fa-envelope')
 """
 
-"""
-    Application wide 404 error handler
-"""
-@appbuilder.app.errorhandler(404)
-def page_not_found(e):
-    return render_template('404.html', base_template=appbuilder.base_template, appbuilder=appbuilder), 404
+def fill_gender():
+    try:
+        db.session.add(Gender(name='Male'))
+        db.session.add(Gender(name='Female'))
+        db.session.commit()
+    except:
+        db.session.rollback()
 
-db.create_all()
+
+class ContactModelView(ModelView):
+    datamodel = SQLAInterface(Contact)
+
+    list_columns = ['name', 'personal_celphone', 'birthday', 'contact_group.name']
+
+    base_order = ('name', 'asc')
+
+    show_fieldsets = [
+        ('Summary', {'fields': ['name', 'gender', 'contact_group']}),
+        (
+            'Personal Info',
+            {'fields': ['address', 'birthday', 'personal_phone', 'personal_celphone'], 'expanded': False}),
+    ]
+
+    add_fieldsets = [
+        ('Summary', {'fields': ['name', 'gender', 'contact_group']}),
+        (
+            'Personal Info',
+            {'fields': ['address', 'birthday', 'personal_phone', 'personal_celphone'], 'expanded': False}),
+    ]
+
+    edit_fieldsets = [
+        ('Summary', {'fields': ['name', 'gender', 'contact_group']}),
+        (
+            'Personal Info',
+            {'fields': ['address', 'birthday', 'personal_phone', 'personal_celphone'], 'expanded': False}),
+    ]
+
+
+class GroupModelView(ModelView):
+    datamodel = SQLAInterface(ContactGroup)
+    related_views = [ContactModelView]
+
+
+class ContactChartView(GroupByChartView):
+    datamodel = SQLAInterface(Contact)
+    chart_title = 'Grouped contacts'
+    label_columns = ContactModelView.label_columns
+    chart_type = 'PieChart'
+
+    definitions = [
+        {
+            'group' : 'contact_group',
+            'series' : [(aggregate_count,'contact_group')]
+        },
+        {
+            'group' : 'gender',
+            'series' : [(aggregate_count,'contact_group')]
+        }
+    ]
+
+
+def pretty_month_year(value):
+    return calendar.month_name[value.month] + ' ' + str(value.year)
+
+def pretty_year(value):
+    return str(value.year)
+
+
+class ContactTimeChartView(GroupByChartView):
+    datamodel = SQLAInterface(Contact)
+
+    chart_title = 'Grouped Birth contacts'
+    chart_type = 'AreaChart'
+    label_columns = ContactModelView.label_columns
+    definitions = [
+        {
+            'group' : 'month_year',
+            'formatter': pretty_month_year,
+            'series': [(aggregate_count, 'group')]
+        },
+        {
+            'group': 'year',
+            'formatter': pretty_year,
+            'series': [(aggregate_count, 'group')]
+        }
+    ]
+
 
 
