@@ -1,6 +1,7 @@
 import logging
 from flask.ext.appbuilder.basemanager import BaseManager
 from .views import ContactModelView
+from flask_babelpkg import lazy_gettext as _
 
 
 log = logging.getLogger(__name__)
@@ -25,7 +26,8 @@ class MyAddOnManager(BaseManager):
         """
              Use the constructor to setup any config keys specific for your app. 
         """
-        app.config.setdefault('MYADDON_KEY', 'SOME VALUE')
+        super(MyAddOnManager, self).__init__(appbuilder)
+        self.appbuilder.get_app.config.setdefault('MYADDON_KEY', 'SOME VALUE')
 
     def register_views(self):
         """
