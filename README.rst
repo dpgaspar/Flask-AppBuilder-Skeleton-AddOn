@@ -1,14 +1,22 @@
-Base Skeleton to start your application using Flask-AppBuilder
---------------------------------------------------------------
+Base Skeleton to start your AddOn for Flask-AppBuilder
+------------------------------------------------------
+
+------------------------------------------------------
+
+THIS IS IN ALPHA STAGE, DON'T TRY IT YET
+------------------------------------------------------
+
 
 - Install it::
 
 	pip install flask-appbuilder
-	git clone https://github.com/dpgaspar/Flask-AppBuilder-Skeleton.git
+	git clone https://github.com/dpgaspar/Flask-AppBuilder-Skeleton-AddOn.git
 
-- Run it::
+- Develop and Test....
 
-	fabmanager run
+- Make it Public::
+
+	python setup.py sdist upload
 
 
 That's it!!
