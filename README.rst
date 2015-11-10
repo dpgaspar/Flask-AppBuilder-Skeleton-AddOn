@@ -3,7 +3,7 @@ Base Skeleton to start your AddOn for Flask-AppBuilder
 
 ------------------------------------------------------
 
-THIS IS IN ALPHA STAGE, DON'T TRY IT YET
+THIS IS IN ALPHA STATE, DON'T TRY IT YET
 ------------------------------------------------------
 
 
