@@ -5,7 +5,7 @@ import multiprocessing
 from setuptools import setup, find_packages
 
 
-version = imp.load_source('version', os.path.join('flask_appbuilder', 'version.py'))
+version = imp.load_source('version', os.path.join('addon_demo', 'version.py'))
 
 def fpath(name):
     return os.path.join(os.path.dirname(__file__), name)
@@ -17,7 +17,7 @@ def desc():
     return read('README.rst')
 
 setup(
-    name='Flask-AppBuilder',
+    name='Flask-AppBuilder-AddOn-Demo',
     version=version.VERSION_STRING,
     url='https://github.com/dpgaspar/flask-appbuilder/',
     license='BSD',
@@ -34,14 +34,7 @@ setup(
     zip_safe=False,
     platforms='any',
     install_requires=[
-        'colorama>=0.3',
-        'click>=3.0',
-        'Flask>=0.10',
-        'Flask-BabelPkg>=0.9.4',
-        'Flask-Login==0.2.11',
-        'Flask-OpenID>=1.1.0',
-        'Flask-SQLAlchemy==2.0',
-        'Flask-WTF>=0.9.1',
+        'Flask-AppBuilder>=1.5.0',
     ],
     tests_require=[
         'nose>=1.0',
