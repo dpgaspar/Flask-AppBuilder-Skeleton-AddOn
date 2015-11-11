@@ -4,8 +4,8 @@ import imp
 import multiprocessing
 from setuptools import setup, find_packages
 
-
-version = imp.load_source('version', os.path.join('addon_demo', 'version.py'))
+addon = imp.load_source('config', 'config.py')
+version = imp.load_source('version', os.path.join(addon.FULL_ADDON_NAME, 'version.py'))
 
 def fpath(name):
     return os.path.join(os.path.dirname(__file__), name)
@@ -17,19 +17,16 @@ def desc():
     return read('README.rst')
 
 setup(
-    name='Flask-AppBuilder-AddOn-Demo',
+    name=addon.FULL_ADDON_NAME,
     version=version.VERSION_STRING,
     url='https://github.com/dpgaspar/flask-appbuilder/',
     license='BSD',
-    author='Daniel Vaz Gaspar',
-    author_email='danielvazgaspar@gmail.com',
-    description='Simple and rapid application development framework, built on top of Flask. includes detailed security, auto CRUD generation for your models, google charts and much more.',
+    author=version.AUTHOR_NAME,
+    author_email=version.AUTHOR_EMAIL,
+    description=version.DESCRIPTION,
     long_description=desc(),
     packages=find_packages(),
     package_data={'': ['LICENSE']},
-    entry_points={'console_scripts': [
-          'fabmanager = flask_appbuilder.console:cli',
-      ]},
     include_package_data=True,
     zip_safe=False,
     platforms='any',
