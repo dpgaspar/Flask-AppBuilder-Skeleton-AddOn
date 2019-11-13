@@ -20,4 +20,3 @@ msgstr ""
 #: app/templates/404.html:4
 msgid "Page not found"
 msgstr ""
-

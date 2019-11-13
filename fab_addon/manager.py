@@ -1,7 +1,6 @@
 import logging
-from flask.ext.appbuilder.basemanager import BaseManager
-from .views import ContactModelView
-from flask_babelpkg import lazy_gettext as _
+from flask_appbuilder.basemanager import BaseManager
+from flask_babel import lazy_gettext as _
 
 
 log = logging.getLogger(__name__)
